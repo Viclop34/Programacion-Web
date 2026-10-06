@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluador por Edad y Sexo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Formulario de Condiciones</h2>
+        <form id="userForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required placeholder="Ingresa tu nombre">
+            </div>
+            
+            <div class="form-group">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" required min="0" placeholder="Ingresa tu edad">
+            </div>
+            
+            <div class="form-group">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" required>
+                    <option value="">Selecciona...</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+            </div>
+            
+            <button type="button" onclick="evaluarCondiciones()">Evaluar</button>
+        </form>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function evaluarCondiciones() {
+            // Obtener los valores del formulario
+            const nombre = document.getElementById('nombre').value.trim();
+            const edad = parseInt(document.getElementById('edad').value);
+            const sexo = document.getElementById('sexo').value;
+            const contenedorResultado = document.getElementById('resultado');
+
+            // Validar que los campos no estén vacíos
+            if (!nombre || isNaN(edad) || !sexo) {
+                contenedorResultado.innerHTML = "<p style='color: red;'>Por favor, completa todos los campos correctamente.</p>";
+                return;
+            }
+
+            let mensaje = "";
+            let imagenUrl = "";
+
+            // Evaluar las condiciones solicitadas
+            if (sexo === 'masculino' && edad < 18) {
+                mensaje = `Hola ${nombre}, eres masculino y menor de 18 años.`;
+                imagenUrl = "https://imgs.search.brave.com/8rx0agQU6BUZf1oGAWp0g4dK1TfugIWTStNxX1aPLoA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWNzLmNpbmVtZXgu/Y29tL3VwbG9hZHMv/Y21zL21vdmllX3Bv/c3RlcnMvMTc5MDU1/Nzg1My1jYzFjNjU2/YzdlZWZmZGM4LXBv/c3Rlcl9zbWFsbC5q/cGVn"; // Cambia esta URL por tu imagen
+            } 
+            else if (sexo === 'femenino' && edad < 18) {
+                mensaje = `Hola ${nombre}, eres femenina y menor de 18 años.`;
+                imagenUrl = "https://imgs.search.brave.com/23BA5yXGHoYidMDAf4MGHIEaaZRAqcWHje8U7X8wZrU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS52b2d1ZS5teC9w/aG90b3MvNjQ5YTA3/YTNiNTdiOTA0M2Qx/ZTU3Y2M2LzE6MS93/XzY0MCxjX2xpbWl0/L0JBUi0wMDIzOC5q/cGc";
+            } 
+            else if (sexo === 'masculino' && edad >= 18 && edad < 30) {
+                mensaje = `Hola ${nombre}, eres masculino y tienes entre 18 y 29 años.`;
+                imagenUrl = "https://imgs.search.brave.com/ltPWQiq0b3IjlF52xVnwZaovb1yuIaB753wDEqUh2Sc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9yZXNl/cnZhbmRvbm9zLmNv/bS9ibG9nL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDE4LzA1L0Fu/dHJvLVNhdnUtQ29u/ZGVzYS1jb24tUmVz/ZXJ2YW5kb25vcy01/LmpwZw";
+            } 
+            else if (sexo === 'femenino' && edad >= 18 && edad < 30) {
+                mensaje = `Hola ${nombre}, eres femenina y tienes entre 18 y 29 años.`;
+                imagenUrl = "https://imgs.search.brave.com/xK-nkvrj2FjqasEfDGan2fzCPxsiKUAaVEOhvxK4Gbs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZS10Yy5nYWxheHku/dGYvd2lqcGVnLTl4/aXVzbGZubWw3N2V0/ZWNydGIwZDViNmMv/cGlzY2luYS1zcGEt/bWFycXVpcy1yZWZv/cm1hLWNkbXguanBn";
+            } 
+            else if (sexo === 'masculino' && edad >= 30) {
+                mensaje = `Hola ${nombre}, eres masculino y mayor de 30 años.`;
+                imagenUrl = "https://imgs.search.brave.com/ydqKcBERrOeHUYDenPCZlEj0DRoNGqYH5Zd2JOdj6eY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMDIv/ODE0LzQ1MS9zbWFs/bC9hYnN0cmFjdC1i/bHVyLWRlZm9jdXNl/ZC1maXRuZXNzLWVx/dWlwbWVudC1hbmQt/Z3ltLWludGVyaW9y/LWZyZWUtcGhvdG8u/anBn";
+            } 
+            else if (sexo === 'femenino' && edad >= 30) {
+                mensaje = `Hola ${nombre}, eres femenina y mayor de 30 años.`;
+                imagenUrl = "https://imgs.search.brave.com/MLFDXbwUnWhOp3Hwnihwb1IVd82nI7bD2JNPFJyOpso/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTgy/OTI0MDYwMC9waG90/by9oYXZpbmctYnJ1/bmNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz16c2REXzFN/RzRQZTZKNGVUOVNu/NWVMMVBBOXRtRzJw/ZHV1Y3Z1OUR6Nzdn/PQ";
+            }
+
+            // Mostrar el resultado en el HTML
+            contenedorResultado.innerHTML = `
+                <p><strong>${mensaje}</strong></p>
+                <img src="${imagenUrl}" alt="Imagen según condición">
+            `;
+        }
+    </script>
+
+</body>
+</html>
