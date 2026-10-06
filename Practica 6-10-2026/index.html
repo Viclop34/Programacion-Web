@@ -95,13 +95,12 @@
 
     <script>
         function evaluarCondiciones() {
-            // Obtener los valores del formulario
+
             const nombre = document.getElementById('nombre').value.trim();
             const edad = parseInt(document.getElementById('edad').value);
             const sexo = document.getElementById('sexo').value;
             const contenedorResultado = document.getElementById('resultado');
 
-            // Validar que los campos no estén vacíos
             if (!nombre || isNaN(edad) || !sexo) {
                 contenedorResultado.innerHTML = "<p style='color: red;'>Por favor, completa todos los campos correctamente.</p>";
                 return;
@@ -110,7 +109,6 @@
             let mensaje = "";
             let imagenUrl = "";
 
-            // Evaluar las condiciones solicitadas
             if (sexo === 'masculino' && edad < 18) {
                 mensaje = `Hola ${nombre}, eres masculino y menor de 18 años.`;
                 imagenUrl = "https://imgs.search.brave.com/8rx0agQU6BUZf1oGAWp0g4dK1TfugIWTStNxX1aPLoA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWNzLmNpbmVtZXgu/Y29tL3VwbG9hZHMv/Y21zL21vdmllX3Bv/c3RlcnMvMTc5MDU1/Nzg1My1jYzFjNjU2/YzdlZWZmZGM4LXBv/c3Rlcl9zbWFsbC5q/cGVn"; // Cambia esta URL por tu imagen
@@ -136,7 +134,6 @@
                 imagenUrl = "https://imgs.search.brave.com/MLFDXbwUnWhOp3Hwnihwb1IVd82nI7bD2JNPFJyOpso/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTgy/OTI0MDYwMC9waG90/by9oYXZpbmctYnJ1/bmNoLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz16c2REXzFN/RzRQZTZKNGVUOVNu/NWVMMVBBOXRtRzJw/ZHV1Y3Z1OUR6Nzdn/PQ";
             }
 
-            // Mostrar el resultado en el HTML
             contenedorResultado.innerHTML = `
                 <p><strong>${mensaje}</strong></p>
                 <img src="${imagenUrl}" alt="Imagen según condición">
